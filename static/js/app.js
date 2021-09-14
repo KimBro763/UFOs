@@ -23,9 +23,6 @@ function buildTable(data) {
   });
 }
 
-
-
-
 //PSEUDOCODE: GRAB DATA ENTERED INTO FILTERED SEARCH AND RETURN THE FILTERED DATA WITHIN THE TABLE
 //1. grab value & id of each element as someone clicks 
 //2. use the values & id of the elements to filter each row inside the data table
@@ -36,38 +33,47 @@ function buildTable(data) {
 // 1. Create a variable to keep track of all the filters as an object.
 var filters = {}
 
-let date = document.getElementById("datetime")
-    date.addEventListener("change", e => {
-      filters[e.target.id] = e.target.value 
-  });
+// let date = document.getElementById("datetime")
+//     date.addEventListener("change", e => {
+//       filters[e.target.id] = e.target.value 
+//   });
 
-let state = document.getElementById("state")
-  state.addEventListener("change", e => {
-    filters[e.target.id] = e.target.value 
-  });
+// let state = document.getElementById("state")
+//   state.addEventListener("change", e => {
+//     filters[e.target.id] = e.target.value 
+//   });
   
-let city = document.getElementById("city")
-  city.addEventListener("change", e => {
-    filters[e.target.id] = e.target.value 
-  });
+// let city = document.getElementById("city")
+//   city.addEventListener("change", e => {
+//     filters[e.target.id] = e.target.value 
+//   });
 
-let country = document.getElementById("country")
-  country.addEventListener("change", e => {
-    filters[e.target.id] = e.target.value 
-  });
+// let country = document.getElementById("country")
+//   country.addEventListener("change", e => {
+//     filters[e.target.id] = e.target.value 
+//   });
 
-let shape = document.getElementById("shape")
-  shape.addEventListener("change", e => {
-    filters[e.target.id] = e.target.value 
-  });
+let element = document.getElementsByTagName('input')
+
+element = [...element]
+
+element.forEach(ele => {
+  ele.addEventListener('change', e => {
+    filters[e.target.id] = e.target.value
+  })
+});
 
 function updateFilter() {
   let filteredData = tableData;  
   Object.entries(filters).forEach(([key, value]) => {
-    filteredData = filteredData.filter(row => row[key] === value)
+    if (value !== ''){
+      filteredData = filteredData.filter(row => row[key] === value)
+    } else {
+      delete filters[key]
+    }
       })
   
-  
+
     // 6. Call function to apply all filters and rebuild the table
     buildTable(filteredData);
   }
